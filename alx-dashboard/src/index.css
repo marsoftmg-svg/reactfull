@@ -1,3 +1,15 @@
+/* ============================================================
+   ALX Dashboard – index.css
+   Klasy dopasowane do projektu dashboard_react_v1:
+     app-shell, sidebar, nav-item, main-content, page-content,
+     page, page-header, kpi-grid, kpi-card, chart-card,
+     range-buttons/btn, controls, search-input, filter-tabs,
+     data-table, badge
+   ============================================================ */
+
+
+/* ── ZMIENNE ────────────────────────────────────────────────── */
+
 :root {
   --sidebar-w:    220px;
   --header-h:     56px;
