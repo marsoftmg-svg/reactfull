@@ -7,7 +7,11 @@ const NAV_ITEMS = [
   { to: '/products',  label: 'Produkty',    icon: '📦' },
   { to: '/analytics', label: 'Analityka',   icon: '📈' },
   { to: '/settings',  label: 'Ustawienia',  icon: '⚙️'  },
-];
+  { to: '/forms',  label: 'Login',  icon: '⌨️'  },
+  { to: '/register',  label: 'Rejestracja',  icon: '⌨️'  },
+  { to: '/kraj',  label: 'Kraj',  icon: '⌨️'  },
+]
+
 
 function Sidebar() {
   const newOrders = useSelector(s => s.dashboard.newOrders);
@@ -21,6 +25,7 @@ function Sidebar() {
       </div>
 
       <nav>
+       
         {NAV_ITEMS.map(({ to, label, icon }) => (
           <NavLink
             key={to}
