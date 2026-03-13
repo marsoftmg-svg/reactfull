@@ -1,0 +1,55 @@
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches: [main]       # odpala sie przy push na main
+  workflow_dispatch:        # mozna tez odpalistic recznie z UI
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Tylko jeden deployment na raz
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+          cache-dependency-path: alx-dashboard/package-lock.json
+
+      - name: Install dependencies
+        working-directory: alx-dashboard
+        run: npm ci
+
+      - name: Build
+        working-directory: alx-dashboard
+        run: npm run build
+        # dist/ bedzie w alx-dashboard/dist/
+
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: alx-dashboard/dist
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
